@@ -6,6 +6,7 @@ import Control.Monad.Trans (lift)
 import Data.Conduit        (Producer, Source, await, newResumableSource, yield, ($$++))
 import Data.List           (sortOn)
 
+-- | Merge multiple sorted source into one sorted producer.
 mergeSources :: (Ord a, Monad m) => [Source m a] -> Producer m a
 mergeSources = mergeResumable . map newResumableSource
   where
