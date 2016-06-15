@@ -1,0 +1,24 @@
+name:           conduit-merge
+version:        0.1.0.0
+synopsis:       Merge multiple sorted conduits
+homepage:       https://github.com/cblp/conduit-merge#readme
+license:        BSD3
+license-file:   LICENSE
+author:         Yuriy Syrovetskiy
+maintainer:     cblp@cblp.su
+copyright:      2016 Yuriy Syrovetskiy
+category:       Conduit
+build-type:     Simple
+cabal-version:  >=1.10
+
+library
+    build-depends:    base >= 4.7 && < 5
+                    , conduit
+                    , mtl
+    default-language: Haskell2010
+    exposed-modules:  Data.Conduit.Merge
+    hs-source-dirs:   src
+
+source-repository head
+    location: https://github.com/cblp/conduit-merge
+    type:     git
