@@ -4,15 +4,16 @@ module Data.Conduit.Merge (mergeSources, mergeSourcesOn) where
 
 import Control.Monad.Trans (lift)
 import Data.Conduit        (Producer, Source, await, newResumableSource, yield, ($$++))
+import Data.Foldable       (toList)
 import Data.List           (sortOn)
 
--- | Merge multiple sorted source into one sorted producer.
-mergeSources :: (Ord a, Monad m) => [Source m a] -> Producer m a
+-- | Merge multiple sorted sources into one sorted producer.
+mergeSources :: (Ord a, Foldable f, Monad m) => f (Source m a) -> Producer m a
 mergeSources = mergeSourcesOn id
 
--- | Merge multiple sorted source into one sorted producer using specified sorting key.
-mergeSourcesOn :: (Ord b, Monad m) => (a -> b) -> [Source m a] -> Producer m a
-mergeSourcesOn key = mergeResumable . fmap newResumableSource
+-- | Merge multiple sorted sources into one sorted producer using specified sorting key.
+mergeSourcesOn :: (Ord b, Foldable f, Monad m) => (a -> b) -> f (Source m a) -> Producer m a
+mergeSourcesOn key = mergeResumable . fmap newResumableSource . toList
   where
     mergeResumable sources = do
         prefetchedSources <- lift $ traverse ($$++ await) sources
