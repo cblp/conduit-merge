@@ -5,7 +5,11 @@ Merge multiple conduits into one.
 ```haskell
 module Data.Conduit.Merge where
 
-mergeSources :: (Ord a, Monad m) => [Source m a] -> Producer m a
+-- | Merge multiple sorted sources into one sorted producer.
+mergeSources :: (Ord a, Foldable f, Monad m) => f (Source m a) -> Producer m a
+
+-- | Merge multiple sorted sources into one sorted producer using specified sorting key.
+mergeSourcesOn :: (Ord b, Foldable f, Monad m) => (a -> b) -> f (Source m a) -> Producer m a
 ```
 
 ## Example
