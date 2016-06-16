@@ -10,6 +10,7 @@ import Data.List           (sortOn)
 -- | Merge multiple sorted sources into one sorted producer.
 mergeSources :: (Ord a, Foldable f, Monad m) => f (Source m a) -> Producer m a
 mergeSources = mergeSourcesOn id
+{-# INLINE mergeSources #-}
 
 -- | Merge multiple sorted sources into one sorted producer using specified sorting key.
 mergeSourcesOn :: (Ord b, Foldable f, Monad m) => (a -> b) -> f (Source m a) -> Producer m a
