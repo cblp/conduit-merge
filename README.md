@@ -6,10 +6,10 @@ Merge multiple conduits into one.
 module Data.Conduit.Merge where
 
 -- | Merge multiple sorted sources into one sorted producer.
-mergeSources :: (Ord a, Foldable f, Monad m) => f (Source m a) -> Producer m a
+mergeSources :: (Ord a, Foldable f, Monad m) => f (ConduitT () a m ()) -> ConduitT i a m ()
 
 -- | Merge multiple sorted sources into one sorted producer using specified sorting key.
-mergeSourcesOn :: (Ord b, Foldable f, Monad m) => (a -> b) -> f (Source m a) -> Producer m a
+mergeSourcesOn :: (Ord b, Foldable f, Monad m) => (a -> b) -> f (ConduitT () a m ()) -> ConduitT i a m ()
 ```
 
 ## Example
