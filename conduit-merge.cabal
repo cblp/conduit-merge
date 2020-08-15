@@ -12,6 +12,10 @@ category:       Conduit
 build-type:     Simple
 cabal-version:  >= 1.10
 
+source-repository head
+    location: https://github.com/cblp/conduit-merge
+    type:     git
+
 library
     build-depends:    base >= 4.7 && < 5
                     , conduit >= 1.3 && < 1.4
@@ -20,6 +24,19 @@ library
     exposed-modules:  Data.Conduit.Merge
     hs-source-dirs:   src
 
-source-repository head
-    location: https://github.com/cblp/conduit-merge
-    type:     git
+test-suite detect_space_leaks
+    build-depends:      base >= 4.7 && < 5
+                      , conduit
+                      , process
+                      , random
+                      -- package
+                      , conduit-merge
+    default-extensions: BangPatterns
+                        NumericUnderscores
+                        RankNTypes
+                        ScopedTypeVariables
+    default-language:   Haskell2010
+    ghc-options:        -rtsopts -fprof-auto
+    hs-source-dirs:     detect_space_leaks
+    main-is:            Main.hs
+    type:               exitcode-stdio-1.0

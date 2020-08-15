@@ -2,17 +2,19 @@
 
 module Data.Conduit.Merge (mergeSources, mergeSourcesOn) where
 
-import Control.Monad.Trans (lift)
-import Data.Conduit        (ConduitT, await, sealConduitT, yield, ($$++))
-import Data.Foldable       (toList)
-import Data.List           (sortOn)
+import           Control.Monad.Trans (lift)
+import           Data.Conduit (ConduitT, await, sealConduitT, yield, ($$++))
+import           Data.Foldable (toList)
+import           Data.List (sortOn)
 
 -- | Merge multiple sorted sources into one sorted producer.
-mergeSources :: (Ord a, Foldable f, Monad m) => f (ConduitT () a m ()) -> ConduitT i a m ()
+mergeSources ::
+    (Ord a, Foldable f, Monad m) => f (ConduitT () a m ()) -> ConduitT i a m ()
 mergeSources = mergeSourcesOn id
 {-# INLINE mergeSources #-}
 
--- | Merge multiple sorted sources into one sorted producer using specified sorting key.
+-- | Merge multiple sorted sources into one sorted producer using specified
+-- sorting key.
 mergeSourcesOn
     :: (Ord b, Foldable f, Monad m)
     => (a -> b) -> f (ConduitT () a m ()) -> ConduitT i a m ()
