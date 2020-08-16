@@ -1,4 +1,3 @@
-{-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE NumericUnderscores #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -39,8 +38,8 @@ testSource size =
     start <- lift $ randomRIO (-100, 100)
     go start size
   where
-    go _  0 = pure ()
-    go !x n = do
+    go _ 0 = pure ()
+    go x n = do
       yield x
       d <- lift $ randomRIO (0, 10)
       go (x + d) (pred n)
