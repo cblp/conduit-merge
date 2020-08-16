@@ -31,10 +31,6 @@ test-suite detect_space_leaks
                       , random
                       -- package
                       , conduit-merge
-    default-extensions: BangPatterns
-                        NumericUnderscores
-                        RankNTypes
-                        ScopedTypeVariables
     default-language:   Haskell2010
     ghc-options:        -rtsopts -fprof-auto
     hs-source-dirs:     detect_space_leaks

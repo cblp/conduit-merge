@@ -1,3 +1,8 @@
+{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE NumericUnderscores #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+
 import           Conduit (ConduitT, lift, runConduit, yield, (.|))
 import qualified Data.Conduit.Combinators as Conduit
 import           Numeric.Natural (Natural)
@@ -12,7 +17,7 @@ main = do
   exe <- getExecutablePath
   args <- getArgs
   case args of
-    [] -> callProcess exe ["INNER", "+RTS", "-K50K", "-RTS"]
+    [] -> callProcess exe ["INNER", "+RTS", "-K1K", "-RTS"]
     ["INNER"] -> test
     _ -> fail "internal error"
 
@@ -25,8 +30,8 @@ test =
         .| Conduit.length
     print n
   where
-    sourceCount = 2000
-    sourceSize  = 1
+    sourceCount = 10
+    sourceSize  = 100_000
 
 testSource :: Natural -> ConduitT i Integer IO ()
 testSource size =
