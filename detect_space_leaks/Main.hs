@@ -12,12 +12,12 @@ import           Data.Conduit.Merge (mergeSources)
 
 main :: IO ()
 main = do
-  exe <- getExecutablePath
+  exe  <- getExecutablePath
   args <- getArgs
   case args of
-    [] -> callProcess exe ["INNER", "+RTS", "-K1K", "-RTS"]
+    []        -> callProcess exe ["INNER", "+RTS", "-K1K", "-RTS"]
     ["INNER"] -> test
-    _ -> fail "internal error"
+    _         -> fail "internal error"
 
 test :: IO ()
 test =
