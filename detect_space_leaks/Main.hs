@@ -1,5 +1,4 @@
 {-# LANGUAGE NumericUnderscores #-}
-{-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
 import           Conduit (ConduitT, lift, runConduit, yield, (.|))
